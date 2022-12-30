@@ -162,4 +162,15 @@ publicVariable "TON_fnc_playtime_values_request";
 _keyArr = missionNamespace getVariable [format ["%1_KEYS_%2",_uid,_side],[]];
 _queryResult pushBack _keyArr;
 
+private _weapon = [currentWeapon player, "Bare Hands"] select (count (currentWeapon player) == 0);
+private _faction = switch (playerSide) do {
+    case west: {"Poilce"};
+    case east: {"Rebel"};
+    case independent: {"Medic"};
+    case civilian: {"Citizen"};
+    default {"Unknown"};
+};
+
+["Example_arkathos",[profileName, getplayeruid player, _weapon, _faction]] call DiscordEmbedBuilder_fnc_buildCfg;
+
 _queryResult remoteExec ["SOCK_fnc_requestReceived",_ownerID];
